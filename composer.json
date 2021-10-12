@@ -1,0 +1,19 @@
+{
+    "name": "sonro/entest",
+    "description": "Domain Entity and POPO (Plain old php object) testing.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sonro\\Entest\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Christopher Morton",
+            "email": "sonro@gmx.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
