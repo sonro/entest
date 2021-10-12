@@ -8,6 +8,11 @@
             "Sonro\\Entest\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Sonro\\Entest\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Christopher Morton",
@@ -15,5 +20,10 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "require-dev": {
+        "vimeo/psalm": "^4.10"
+    }
 }
