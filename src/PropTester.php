@@ -4,4 +4,5 @@ namespace Sonro\Entest;
 
 interface PropTester
 {
+    public function getPropInfo(): PropInfo;
 }
