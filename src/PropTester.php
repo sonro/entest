@@ -2,6 +2,6 @@
 
 namespace Sonro\Entest;
 
-interface PropTest
+interface PropTester
 {
 }

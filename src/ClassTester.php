@@ -2,21 +2,21 @@
 
 namespace Sonro\Entest;
 
-class ClassTest
+class ClassTester
 {
     /**
-     * @var PropTest[]
+     * @var PropTester[]
      */
-    private array $propTests = [];
+    private array $propTesters = [];
 
     /**
-     * @param PropTest[] $propTests
+     * @param PropTester[] $propTesters
      */
     public function __construct(
         private string $className,
-        array $propTests,
+        array $propTesters,
     ) {
-        $this->propTests = $propTests;
+        $this->propTesters = $propTesters;
     }
 
     public function getClassName(): string
@@ -24,8 +24,8 @@ class ClassTest
         return $this->className;
     }
 
-    public function getPropTests(): array
+    public function getPropTesters(): array
     {
-        return $this->propTests;
+        return $this->propTesters;
     }
 }
