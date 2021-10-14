@@ -1,39 +1,31 @@
 <?php
 
-namespace Sonro\Entest\Tests;
+namespace Sonro\Entest\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Sonro\Entest\PropTester;
 use Sonro\Entest\PropTesterBuilder;
+use Sonro\Entest\Type;
 
 class PropTesterBuilderTest extends TestCase
 {
-    public function test_exists()
+    public function test_exists(): void
     {
         $builder = $this->createPropTesterBuilder();
         $this->assertInstanceOf(PropTesterBuilder::class, $builder);
     }
 
-    public function test_build_prop_tester()
+    public function test_build_prop_tester(): void
     {
         $builder = $this->createPropTesterBuilder();
         $propTester = $builder->build();
         $this->assertInstanceOf(PropTester::class, $propTester);
     }
 
-    public function test_prop_name_used_in_build()
-    {
-        $propName = "propertyName";
-        $builder = $this->createPropTesterBuilder(propName: $propName);
-        $propTester = $builder->build();
-        $actual = $propTester->getPropInfo()->getName();
-        $this->assertEquals($propName, $actual);
-    }
-
-    public function test_chainable_methods()
+    public function test_chainable_methods(): void
     {
         $methods = [
-            "type" => null,
+            "type" => $this->createStub(Type::class),
             "singularName" => null,
             "nullable" => null,
             "addGetter" => null,
@@ -52,11 +44,7 @@ class PropTesterBuilderTest extends TestCase
         }
     }
 
-    private function createPropTesterBuilder(
-        string $propName = null,
-    ): PropTesterBuilder {
-        return new PropTesterBuilder(
-            propName: $propName ?? "defaultPropName",
-        );
+    private function createPropTesterBuilder(): PropTesterBuilder {
+        return new PropTesterBuilder("defaultPropName");
     }
 }

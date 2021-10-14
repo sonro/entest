@@ -4,8 +4,11 @@ namespace Sonro\Entest;
 
 class PropTesterBuilder
 {
+    private Type $type;
+
     public function __construct(private string $propName)
     {
+        $this->type = Type::mixed();
     }
 
     public function build(): PropTester
@@ -15,8 +18,10 @@ class PropTesterBuilder
         return new ScalarPropTester($propInfo);
     }
 
-    public function type(): self
+    public function type(Type $type): self
     {
+        $this->type = $type;
+
         return $this;
     }
 
@@ -74,6 +79,7 @@ class PropTesterBuilder
     {
         return new PropInfo(
             name: $this->propName,
+            type: $this->type,
         );
     }
 }
