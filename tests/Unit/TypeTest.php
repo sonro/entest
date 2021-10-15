@@ -37,11 +37,18 @@ class TypeTest extends TestCase
 
     public function test_equals_with_inner_type(): void
     {
-        $arrayOfInts = Type::array(Type::int());
-        $arrayOfFloats = Type::array(Type::float());
-        
-        $this->assertTrue($arrayOfInts->equals($arrayOfInts));
-        $this->assertFalse($arrayOfInts->equals($arrayOfFloats));
+        $innerInt = Type::int();
+        $innerFloat = Type::float();
+        $data = [
+            [Type::array($innerInt), Type::array($innerFloat)],
+            [Type::collection($innerInt), Type::collection($innerFloat)],
+            [Type::iterable($innerInt), Type::iterable($innerFloat)],
+        ];
+
+        foreach ($data as $pair) {
+            $this->assertTrue($pair[0]->equals($pair[0]));
+            $this->assertFalse($pair[0]->equals($pair[1]));
+        }
     }
 
     public function test_get_inner_type(): void
