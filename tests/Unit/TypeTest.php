@@ -58,6 +58,26 @@ class TypeTest extends TestCase
         $this->assertEquals($innerType, $outerType->getInnerType());
     }
 
+    public function test_is_scalar_is_true_for_scalar_values(): void
+    {
+        $scalarTypes = $this->getScalarTypes();
+        foreach ($scalarTypes as $type) {
+            $this->assertTrue($type->isScalar());
+        }
+    }
+
+    public function test_is_scalar_is_false_for_non_scalar_values(): void
+    {
+        $scalarTypes = $this->getScalarTypes();
+        $allTypes = $this->getTypes();
+        // remove scalar types from array
+        $types = array_filter($allTypes, fn ($x) => !in_array($x, $scalarTypes));
+
+        foreach ($types as $type) {
+            $this->assertFalse($type->isScalar());
+        }
+    }
+
     public function test_to_string(): void
     {
         $types = $this->getTypesWithStringKeys();
@@ -66,6 +86,9 @@ class TypeTest extends TestCase
         }
     }
 
+    /**
+     * @return Type[]
+     */
     private function getTypes(): array
     {
         return array_values($this->getTypesWithStringKeys());
@@ -91,5 +114,13 @@ class TypeTest extends TestCase
             "callable" => Type::callable(),
             "mixed" => Type::mixed(),
         ];
+    }
+
+    /**
+     * @return Type[]
+     */
+    private function getScalarTypes(): array
+    {
+        return [Type::int(), Type::float(), Type::string(), Type::bool()];
     }
 }

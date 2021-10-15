@@ -118,6 +118,17 @@ class Type
         return $this->innerType;
     }
 
+    public function isScalar(): bool
+    {
+        return match ($this->type) {
+            Self::INT,
+            Self::FLOAT,
+            Self::STRING,
+            Self::BOOL => true,
+            default => false,
+        };
+    }
+
     public function __toString(): string
     {
         return match ($this->type) {

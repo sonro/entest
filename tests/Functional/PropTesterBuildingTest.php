@@ -21,14 +21,13 @@ class PropTesterBuildingTest extends TestCase
     public function test_type_used_in_build(): void
     {
         $type = Type::string();
-        $expected = $type->__toString();
 
         $builder = $this->createPropTesterBuilder();
         $builder->type($type);
         $propInfo = $this->getBuiltPropInfo($builder);
 
-        $actual = $propInfo->getType()->__toString();
-        $this->assertEquals($expected, $actual);
+        $actual = $propInfo->getType();
+        $this->assertEquals($type, $actual);
     }
 
     private function getBuiltPropInfo($builder): PropInfo
