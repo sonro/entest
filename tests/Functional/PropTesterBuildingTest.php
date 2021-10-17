@@ -5,6 +5,7 @@ namespace Sonro\Entest\Tests\Functional;
 use PHPUnit\Framework\TestCase;
 use Sonro\Entest\PropInfo;
 use Sonro\Entest\PropTesterBuilder;
+use Sonro\Entest\PropTesterFactory;
 use Sonro\Entest\Type;
 
 class PropTesterBuildingTest extends TestCase
@@ -12,7 +13,9 @@ class PropTesterBuildingTest extends TestCase
     public function test_prop_name_used_in_build(): void
     {
         $propName = "propertyName";
-        $builder = new PropTesterBuilder($propName);
+        $factory = $this->createFactory();
+        $builder = new PropTesterBuilder($propName, $factory);
+
         $propInfo = $this->getBuiltPropInfo($builder);
         $actual = $propInfo->getName();
         $this->assertEquals($propName, $actual);
@@ -39,6 +42,13 @@ class PropTesterBuildingTest extends TestCase
 
     private function createPropTesterBuilder(): PropTesterBuilder
     {
-        return new PropTesterBuilder("defaultPropName");
+        $factory = $this->createFactory();
+
+        return new PropTesterBuilder("defaultPropName", $factory);
+    }
+
+    private function createFactory(): PropTesterFactory
+    {
+        return new PropTesterFactory();
     }
 }

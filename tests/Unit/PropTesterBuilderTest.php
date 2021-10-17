@@ -6,8 +6,7 @@ use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Sonro\Entest\PropTester;
 use Sonro\Entest\PropTesterBuilder;
-use Sonro\Entest\MixedPropTester;
-use Sonro\Entest\ScalarPropTester;
+use Sonro\Entest\PropTesterFactory;
 use Sonro\Entest\Type;
 
 class PropTesterBuilderTest extends TestCase
@@ -47,31 +46,13 @@ class PropTesterBuilderTest extends TestCase
         }
     }
 
-    public function test_build_default_mixed_prop_tester(): void
-    {
-        $builder = $this->createPropTesterBuilder();
-        $propTester = $builder->build();
-        $this->assertInstanceOf(MixedPropTester::class, $propTester);
-    }
-
-    public function test_build_configured_mixed_prop_tester(): void
-    {
-        $builder = $this->createPropTesterBuilder();
-        $builder->type(Type::mixed());
-        $propTester = $builder->build();
-        $this->assertInstanceOf(MixedPropTester::class, $propTester);
-    }
-
-    public function test_build_scalar_prop_tester(): void
-    {
-        $builder = $this->createPropTesterBuilder();
-        $builder->type(Type::int());
-        $propTester = $builder->build();
-        $this->assertInstanceOf(ScalarPropTester::class, $propTester);
-    }
-
     private function createPropTesterBuilder(): PropTesterBuilder {
-        return new PropTesterBuilder("defaultPropName");
+        /** @var PropTesterFactory|Stub */
+        $factory = $this->createStub(PropTesterFactory::class);
+        $propTester = $this->createStub(PropTester::class);
+        $factory->method("createPropTester")->willReturn($propTester);
+
+        return new PropTesterBuilder("defaultPropName", $factory);
     }
 
     /**

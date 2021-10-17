@@ -129,6 +129,15 @@ class Type
         };
     }
 
+    public function isCustom(): bool
+    {
+        return match ($this->type) {
+            Self::OBJECT,
+            Self::CUSTOM => true,
+            default => false,
+        };
+    }
+
     public function __toString(): string
     {
         return match ($this->type) {

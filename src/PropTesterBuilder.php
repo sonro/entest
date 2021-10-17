@@ -6,33 +6,18 @@ class PropTesterBuilder
 {
     private Type $type;
 
-    private PropInfo $propInfo;
-
-    public function __construct(private string $propName)
-    {
+    public function __construct(
+        private string $propName,
+        private PropTesterFactory $factory,
+    ) {
         $this->type = Type::mixed();
-        $this->propInfo = $this->generatePropInfo();
     }
 
     public function build(): PropTester
     {
-        $this->propInfo = $this->generatePropInfo();
-
-        if ($this->type->isScalar()) {
-            return $this->buildScalar();
-        }
-
-        return $this->buildMixed();
-    }
-
-    private function buildScalar(): ScalarPropTester
-    {
-        return new ScalarPropTester($this->propInfo);
-    }
-
-    private function buildMixed(): MixedPropTester
-    {
-        return new MixedPropTester($this->propInfo);
+        $propInfo = $this->generatePropInfo();
+        
+        return $this->factory->createPropTester($propInfo);
     }
 
     public function type(Type $type): self

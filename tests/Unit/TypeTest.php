@@ -70,11 +70,29 @@ class TypeTest extends TestCase
     {
         $scalarTypes = $this->getScalarTypes();
         $allTypes = $this->getTypes();
-        // remove scalar types from array
-        $types = array_filter($allTypes, fn ($x) => !in_array($x, $scalarTypes));
+        $types = $this->arrayFilterOut($scalarTypes, $allTypes);
 
         foreach ($types as $type) {
             $this->assertFalse($type->isScalar());
+        }
+    }
+
+    public function test_is_custom_is_true_for_custom_values(): void
+    {
+        $customTypes = $this->getCustomTypes();
+        foreach ($customTypes as $type) {
+            $this->assertTrue($type->isCustom());
+        }
+    }
+
+    public function test_is_custom_is_false_for_non_custom_values(): void
+    {
+        $customTypes = $this->getCustomTypes();
+        $allTypes = $this->getTypes();
+        $types = $this->arrayFilterOut($customTypes, $allTypes);
+
+        foreach ($types as $type) {
+            $this->assertFalse($type->isCustom());
         }
     }
 
@@ -122,5 +140,18 @@ class TypeTest extends TestCase
     private function getScalarTypes(): array
     {
         return [Type::int(), Type::float(), Type::string(), Type::bool()];
+    }
+
+    /**
+     * @return Type[]
+     */
+    private function getCustomTypes(): array
+    {
+        return [Type::object(), Type::custom("ClassName")];
+    }
+
+    private function arrayFilterOut(array $needles, array $haystack): array
+    {
+        return array_filter($haystack, fn ($x) => !in_array($x, $needles));
     }
 }
