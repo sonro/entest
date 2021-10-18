@@ -62,7 +62,8 @@ class TypeTest extends TestCase
     {
         $scalarTypes = $this->getScalarTypes();
         foreach ($scalarTypes as $type) {
-            $this->assertTrue($type->isScalar());
+            $message = $this->getTypeMessage($type);
+            $this->assertTrue($type->isScalar(), $message);
         }
     }
 
@@ -73,7 +74,8 @@ class TypeTest extends TestCase
         $types = $this->arrayFilterOut($scalarTypes, $allTypes);
 
         foreach ($types as $type) {
-            $this->assertFalse($type->isScalar());
+            $message = $this->getTypeMessage($type);
+            $this->assertFalse($type->isScalar(), $message);
         }
     }
 
@@ -81,7 +83,8 @@ class TypeTest extends TestCase
     {
         $complexTypes = $this->getComplexTypes();
         foreach ($complexTypes as $type) {
-            $this->assertTrue($type->isComplex());
+            $message = $this->getTypeMessage($type);
+            $this->assertTrue($type->isComplex(), $message);
         }
     }
 
@@ -92,7 +95,29 @@ class TypeTest extends TestCase
         $types = $this->arrayFilterOut($complexTypes, $allTypes);
 
         foreach ($types as $type) {
-            $this->assertFalse($type->isComplex());
+            $message = $this->getTypeMessage($type);
+            $this->assertFalse($type->isComplex(), $message);
+        }
+    }
+
+    public function test_is_multi_is_true_for_multi_values(): void
+    {
+        $multiTypes = $this->getMultiTypes();
+        foreach ($multiTypes as $type) {
+            $message = $this->getTypeMessage($type);
+            $this->assertTrue($type->isMulti(), $message);
+        }
+    }
+
+    public function test_is_multi_is_false_for_non_multi_values(): void
+    {
+        $multiTypes = $this->getMultiTypes();
+        $allTypes = $this->getTypes();
+        $types = $this->arrayFilterOut($multiTypes, $allTypes);
+
+        foreach ($types as $type) {
+            $message = $this->getTypeMessage($type);
+            $this->assertFalse($type->isMulti(), $message);
         }
     }
 
@@ -150,8 +175,28 @@ class TypeTest extends TestCase
         return [Type::object(), Type::custom("ClassName")];
     }
 
+    /**
+     * @return Type[]
+     */
+    private function getMultiTypes(): array
+    {
+        return [
+            Type::array(Type::int()),
+            Type::array(Type::mixed()),
+            Type::collection(Type::int()),
+            Type::collection(Type::float()),
+            Type::iterable(Type::custom("ClassName")),
+            Type::iterable(Type::bool()),
+        ];
+    }
+
+    private function getTypeMessage(Type $type): string
+    {
+        return "Type: {$type->__toString()}"; 
+    }
+
     private function arrayFilterOut(array $needles, array $haystack): array
     {
-        return array_filter($haystack, fn ($x) => !in_array($x, $needles));
+        return array_filter($haystack, fn($x) => !in_array($x, $needles));
     }
 }

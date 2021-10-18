@@ -138,6 +138,16 @@ class Type
         };
     }
 
+    public function isMulti(): bool
+    {
+        return match ($this->type) {
+            Self::ARRAY,
+            Self::COLLECTION,
+            Self::ITERABLE => true,
+            default => false,
+        };
+    }
+
     public function __toString(): string
     {
         return match ($this->type) {
