@@ -2,7 +2,7 @@
 
 namespace Sonro\Entest;
 
-class CustomPropTester implements PropTester
+class ComplexPropTester implements PropTester
 {
     public function __construct(private PropInfo $propInfo)
     {

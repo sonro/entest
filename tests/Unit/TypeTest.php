@@ -77,22 +77,22 @@ class TypeTest extends TestCase
         }
     }
 
-    public function test_is_custom_is_true_for_custom_values(): void
+    public function test_is_complex_is_true_for_complex_values(): void
     {
-        $customTypes = $this->getCustomTypes();
-        foreach ($customTypes as $type) {
-            $this->assertTrue($type->isCustom());
+        $complexTypes = $this->getComplexTypes();
+        foreach ($complexTypes as $type) {
+            $this->assertTrue($type->isComplex());
         }
     }
 
-    public function test_is_custom_is_false_for_non_custom_values(): void
+    public function test_is_complex_is_false_for_non_complex_values(): void
     {
-        $customTypes = $this->getCustomTypes();
+        $complexTypes = $this->getComplexTypes();
         $allTypes = $this->getTypes();
-        $types = $this->arrayFilterOut($customTypes, $allTypes);
+        $types = $this->arrayFilterOut($complexTypes, $allTypes);
 
         foreach ($types as $type) {
-            $this->assertFalse($type->isCustom());
+            $this->assertFalse($type->isComplex());
         }
     }
 
@@ -145,7 +145,7 @@ class TypeTest extends TestCase
     /**
      * @return Type[]
      */
-    private function getCustomTypes(): array
+    private function getComplexTypes(): array
     {
         return [Type::object(), Type::custom("ClassName")];
     }

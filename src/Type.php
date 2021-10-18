@@ -129,7 +129,7 @@ class Type
         };
     }
 
-    public function isCustom(): bool
+    public function isComplex(): bool
     {
         return match ($this->type) {
             Self::OBJECT,

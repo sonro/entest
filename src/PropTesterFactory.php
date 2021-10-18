@@ -11,8 +11,8 @@ class PropTesterFactory
         if ($type->isScalar()) {
             return new ScalarPropTester($propInfo);
         }
-        if ($type->isCustom()) {
-            return new CustomPropTester($propInfo);
+        if ($type->isComplex()) {
+            return new ComplexPropTester($propInfo);
         }
 
         return new MixedPropTester($propInfo);

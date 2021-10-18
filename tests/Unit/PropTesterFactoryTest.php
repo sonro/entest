@@ -4,7 +4,7 @@ namespace Sonro\Entest\Tests\Unit;
 
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Sonro\Entest\CustomPropTester;
+use Sonro\Entest\ComplexPropTester;
 use Sonro\Entest\MixedPropTester;
 use Sonro\Entest\PropInfo;
 use Sonro\Entest\PropTesterFactory;
@@ -25,10 +25,10 @@ class PropTesterFactoryTest extends TestCase
         $this->assertPropTesterType(ScalarPropTester::class, $propInfo);
     }
 
-    public function test_build_custom_prop_tester(): void
+    public function test_build_complex_prop_tester(): void
     {
-        $propInfo = $this->getDummyCustomPropInfo();
-        $this->assertPropTesterType(CustomPropTester::class, $propInfo);
+        $propInfo = $this->getDummyComplexPropInfo();
+        $this->assertPropTesterType(ComplexPropTester::class, $propInfo);
     }
 
     private function assertPropTesterType(
@@ -63,9 +63,9 @@ class PropTesterFactoryTest extends TestCase
     /**
      * @return PropInfo|Stub
      */
-    private function getDummyCustomPropInfo()
+    private function getDummyComplexPropInfo()
     {
-        $type = $this->getDummyCustomType();
+        $type = $this->getDummyComplexType();
 
         return $this->getDummyPropInfo($type);
     }
@@ -105,10 +105,10 @@ class PropTesterFactoryTest extends TestCase
     /**
      * @return Type|Stub
      */
-    private function getDummyCustomType()
+    private function getDummyComplexType()
     {
         $stub = $this->createStub(Type::class);
-        $stub->method("isCustom")->willReturn(true);
+        $stub->method("isComplex")->willReturn(true);
 
         return $stub;
     }
