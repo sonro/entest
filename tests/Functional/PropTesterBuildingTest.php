@@ -3,9 +3,9 @@
 namespace Sonro\Entest\Tests\Functional;
 
 use PHPUnit\Framework\TestCase;
-use Sonro\Entest\PropInfo;
-use Sonro\Entest\PropTesterBuilder;
-use Sonro\Entest\PropTesterFactory;
+use Sonro\Entest\Prop\PropInfo;
+use Sonro\Entest\PropTester\PropTesterBuilder;
+use Sonro\Entest\PropTester\PropTesterFactory;
 use Sonro\Entest\Type;
 
 class PropTesterBuildingTest extends TestCase

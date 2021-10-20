@@ -4,8 +4,8 @@ namespace Sonro\Entest\Tests\Functional;
 
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Sonro\Entest\ClassTesterBuilder;
-use Sonro\Entest\PropTester;
+use Sonro\Entest\ClassTester\ClassTesterBuilder;
+use Sonro\Entest\PropTester\PropTester;
 
 class ClassTesterBuildingTest extends TestCase
 {

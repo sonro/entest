@@ -4,9 +4,9 @@ namespace Sonro\Entest\Tests\Unit;
 
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Sonro\Entest\PropTester;
-use Sonro\Entest\PropTesterBuilder;
-use Sonro\Entest\PropTesterFactory;
+use Sonro\Entest\PropTester\PropTester;
+use Sonro\Entest\PropTester\PropTesterBuilder;
+use Sonro\Entest\PropTester\PropTesterFactory;
 use Sonro\Entest\Type;
 
 class PropTesterBuilderTest extends TestCase

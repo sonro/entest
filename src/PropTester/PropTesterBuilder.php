@@ -1,16 +1,24 @@
 <?php declare(strict_types=1);
 
-namespace Sonro\Entest;
+namespace Sonro\Entest\PropTester;
+
+use Sonro\Entest\Prop\PropInfo;
+use Sonro\Entest\Type;
 
 class PropTesterBuilder
 {
-    private Type $type;
+    /**
+     * @var Type[]
+     */
+    private array $types;
+
+    private bool $union = false;
 
     public function __construct(
         private string $propName,
         private PropTesterFactory $factory,
     ) {
-        $this->type = Type::mixed();
+        $this->types = [Type::mixed()];
     }
 
     public function build(): PropTester
@@ -20,9 +28,12 @@ class PropTesterBuilder
         return $this->factory->createPropTester($propInfo);
     }
 
-    public function type(Type $type): self
+    public function type(Type ...$types): self
     {
-        $this->type = $type;
+        $this->types = $types;
+        if (count($types) > 1) {
+            $this->union = true;
+        }
 
         return $this;
     }
@@ -79,6 +90,10 @@ class PropTesterBuilder
 
     private function generatePropInfo(): PropInfo
     {
-        return new PropInfo(name: $this->propName, type: $this->type);
+        return new PropInfo(
+            name: $this->propName,
+            types: $this->types,
+            union: $this->union,
+        );
     }
 }

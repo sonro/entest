@@ -1,8 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Sonro\Entest;
+namespace Sonro\Entest\PropTester;
 
-class MixedPropTester implements PropTester
+use Sonro\Entest\Prop\PropInfo;
+
+class ScalarPropTester implements PropTester
 {
     public function __construct(private PropInfo $propInfo)
     {

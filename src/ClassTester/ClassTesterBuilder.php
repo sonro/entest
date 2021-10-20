@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Sonro\Entest;
+namespace Sonro\Entest\ClassTester;
+
+use Sonro\Entest\PropTester\PropTester;
 
 class ClassTesterBuilder
 {
