@@ -9,6 +9,7 @@ use Sonro\Entest\PropTester\ComplexPropTester;
 use Sonro\Entest\PropTester\MixedPropTester;
 use Sonro\Entest\PropTester\PropTesterFactory;
 use Sonro\Entest\PropTester\ScalarPropTester;
+use Sonro\Entest\PropTester\UnionPropTester;
 use Sonro\Entest\Type;
 
 class PropTesterFactoryTest extends TestCase
@@ -29,6 +30,12 @@ class PropTesterFactoryTest extends TestCase
     {
         $propInfo = $this->getDummyComplexPropInfo();
         $this->assertPropTesterType(ComplexPropTester::class, $propInfo);
+    }
+
+    public function test_build_union_prop_tester(): void
+    {
+        $propInfo = $this->getDummyUnionPropInfo();
+        $this->assertPropTesterType(UnionPropTester::class, $propInfo);
     }
 
     private function assertPropTesterType(
@@ -73,12 +80,36 @@ class PropTesterFactoryTest extends TestCase
     /**
      * @return PropInfo|Stub
      */
+    private function getDummyUnionPropInfo()
+    {
+        $stub = $this->createStub(PropInfo::class);
+        $stub->method("isUnion")->willReturn(true);
+        $types = $this->getDummyScalarTypes();
+        $stub->method("getTypes")->willReturn($types);
+
+        return $stub;
+    }
+
+    /**
+     * @return PropInfo|Stub
+     */
     private function getDummyPropInfo(Type $type)
     {
         $stub = $this->createStub(PropInfo::class);
         $stub->method("getType")->willReturn($type);
 
         return $stub;
+    }
+
+    /**
+     * @return Type[]|Stub[]
+     */
+    private function getDummyScalarTypes()
+    {
+        return [
+            $this->getDummyScalarType(),
+            $this->getDummyScalarType(),
+        ];
     }
 
     /**
