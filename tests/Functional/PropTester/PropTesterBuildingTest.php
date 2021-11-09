@@ -1,6 +1,6 @@
 <?php
 
-namespace Sonro\Entest\Tests\Functional;
+namespace Sonro\Entest\Tests\Functional\PropTester;
 
 use PHPUnit\Framework\TestCase;
 use Sonro\Entest\Prop\PropInfo;

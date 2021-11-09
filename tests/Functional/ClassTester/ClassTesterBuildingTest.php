@@ -1,6 +1,6 @@
 <?php
 
-namespace Sonro\Entest\Tests\Functional;
+namespace Sonro\Entest\Tests\Functional\ClassTester;
 
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
